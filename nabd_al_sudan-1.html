@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#087c45">
+<title>نبض السودان | السودان في قلب الحدث</title>
+<style>
+:root{--green:#087c45;--dark:#075b35;--bg:#f3f7f4;--ink:#17231c;--muted:#64736a;--line:#e3ebe5;--white:#fff}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
+header{background:linear-gradient(135deg,var(--dark),var(--green));color:#fff;padding:25px 16px 20px;text-align:center}
+header h1{font-size:clamp(26px,5vw,38px);margin:0}header p{margin:5px 0 0}
+nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;background:#fff;padding:12px;position:sticky;top:0;z-index:5;box-shadow:0 2px 8px #0000000c}
+nav a{color:var(--green);text-decoration:none;font-weight:bold;padding:8px 13px;border-radius:9px}nav a:hover,nav a:focus{background:#eaf5ee}
+main{max-width:1050px;margin:auto;padding:18px}
+.hero,.panel,.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px;margin:14px 0;box-shadow:0 3px 12px #173b2410}
+.hero{background:linear-gradient(120deg,#fff,#edf8f0)}
+h2{color:var(--green);margin:0 0 10px}h3{margin:0 0 7px;color:var(--dark)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.card{margin:0}.muted{color:var(--muted);font-size:.94rem}
+button,.button{border:0;border-radius:9px;background:var(--green);color:white;padding:10px 15px;font-size:15px;cursor:pointer;text-decoration:none;display:inline-block}
+button:hover,.button:hover{background:var(--dark)}button.secondary{background:#eaf5ee;color:var(--dark)}
+input,select,textarea{width:100%;padding:11px;border:1px solid #ccd9cf;border-radius:9px;font:inherit;margin:5px 0 12px;background:#fff}
+label{font-weight:bold}.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.badge{display:inline-block;background:#eaf5ee;color:var(--dark);padding:3px 9px;border-radius:20px;font-size:12px}
+.news-item{padding:12px 0;border-bottom:1px solid var(--line)}.news-item:last-child{border:0}
+footer{text-align:center;background:var(--dark);color:#fff;padding:22px;margin-top:25px}
+.notice{background:#fff8df;border:1px solid #f1df9c;color:#675313;padding:12px;border-radius:10px}
+#adminPanel{display:none}.empty{padding:18px;text-align:center;color:var(--muted)}
+@media(max-width:500px){main{padding:12px}nav{justify-content:space-around}nav a{padding:7px 9px;font-size:14px}}
+</style>
+</head>
+<body>
+<header><h1>🇸🇩 نبض السودان</h1><p>السودان في قلب الحدث</p></header>
+<nav aria-label="التنقل الرئيسي">
+<a href="#home">الرئيسية</a><a href="#news">الأخبار</a><a href="#services">الخدمات</a><a href="#about">عن المنصة</a><a href="#admin">إدارة المحتوى</a>
+</nav>
+<main>
+<section id="home" class="hero">
+<h2>أهلاً بك في نبض السودان</h2>
+<p>منصة لمتابعة الأخبار والخدمات والمعلومات السودانية من مكان واحد.</p>
+<div class="grid">
+<div class="card"><h3>📰 الأخبار</h3><p class="muted">اقرأ الأخبار المنشورة على المنصة وابحث فيها.</p><a class="button" href="#news">تصفح الأخبار</a></div>
+<div class="card"><h3>💱 أسعار العملات</h3><p class="muted">عرض إرشادي لأسعار الصرف مقابل الدولار.</p><a class="button" href="#currencies">عرض الأسعار</a></div>
+<div class="card"><h3>🌤️ الطقس</h3><p class="muted">استعلم عن حالة الطقس في مدينة سودانية.</p><a class="button" href="#weather">عرض الطقس</a></div>
+</div>
+</section>
+
+<section id="news" class="panel">
+<h2>📰 آخر الأخبار</h2>
+<p class="muted">يمكنك البحث في الأخبار المضافة إلى هذه النسخة.</p>
+<input id="newsSearch" type="search" placeholder="ابحث في الأخبار..." aria-label="ابحث في الأخبار">
+<div id="newsList"></div>
+</section>
+
+<section id="services" class="panel">
+<h2>خدماتنا</h2>
+<div class="grid">
+<article id="currencies" class="card"><h3>💱 أسعار العملات</h3><p class="muted">أسعار مرجعية من واجهة عامة، وليست أسعار السوق السوداني أو توصية مالية.</p>
+<label for="baseCurrency">العملة الأساسية</label><select id="baseCurrency"><option value="USD">الدولار الأمريكي (USD)</option><option value="EUR">اليورو (EUR)</option><option value="GBP">الجنيه الإسترليني (GBP)</option></select>
+<button id="loadRates">تحديث الأسعار</button><div id="rates" class="muted" aria-live="polite">اضغط على تحديث الأسعار.</div></article>
+<article id="weather" class="card"><h3>🌤️ الطقس في السودان</h3><label for="city">اختر المدينة</label><select id="city"><option value="Khartoum">الخرطوم</option><option value="Omdurman">أم درمان</option><option value="Port Sudan">بورتسودان</option><option value="Kassala">كسلا</option><option value="Wad Madani">ود مدني</option><option value="El Obeid">الأبيض</option><option value="Nyala">نيالا</option></select>
+<button id="loadWeather">عرض الطقس</button><div id="weatherResult" class="muted" aria-live="polite">اختر مدينة واضغط عرض الطقس.</div></article>
+<article class="card"><h3>📍 الولايات السودانية</h3><p>الخرطوم، الجزيرة، البحر الأحمر، كسلا، القضارف، نهر النيل، الشمالية، النيل الأبيض، النيل الأزرق، سنار، شمال كردفان، غرب كردفان، جنوب كردفان، شمال دارفور، غرب دارفور، جنوب دارفور، شرق دارفور، وسط دارفور.</p><p class="muted">قائمة تعريفية أولية؛ يمكن إضافة صفحات تفصيلية لكل ولاية لاحقاً.</p></article>
+<article class="card"><h3>📢 الإعلانات</h3><p>لإضافة إعلان أو خبر تجريبي استخدم لوحة إدارة المحتوى أدناه. هذه الإضافات تحفظ على هذا الجهاز فقط.</p><a class="button" href="#admin">إضافة محتوى</a></article>
+</div>
+</section>
+
+<section id="about" class="panel"><h2>عن نبض السودان</h2><p>نبض السودان مشروع إعلامي وخدمي تجريبي يهدف إلى جمع الأخبار والمعلومات والخدمات العامة في واجهة عربية سهلة الاستخدام.</p><div class="notice">تنبيه: الأخبار المعروضة عند بدء التشغيل أمثلة تجريبية وليست أخباراً حقيقية أو تحديثات مباشرة. تحقق دائماً من المصادر الرسمية والموثوقة.</div></section>
+
+<section id="admin" class="panel">
+<h2>🛠️ إدارة المحتوى</h2>
+<p class="muted">لوحة محلية مبسطة لإضافة الأخبار وحذفها. لا تتضمن تسجيل دخول أو صلاحيات آمنة، ولا تصلح لإدارة موقع عام على الإنترنت.</p>
+<button id="toggleAdmin" class="secondary">إظهار / إخفاء نموذج الإضافة</button>
+<div id="adminPanel">
+<form id="addNewsForm">
+<label for="headline">عنوان الخبر أو الإعلان</label><input id="headline" maxlength="120" required placeholder="اكتب العنوان">
+<label for="bodyText">التفاصيل</label><textarea id="bodyText" rows="3" maxlength="1000" required placeholder="اكتب التفاصيل"></textarea>
+<label for="category">التصنيف</label><select id="category"><option>أخبار</option><option>إعلان</option><option>خدمات</option></select>
+<button type="submit">نشر على هذا الجهاز</button>
+</form></div>
+</section>
+</main>
+<footer><strong>نبض السودان 🇸🇩</strong><br>منصة سودانية للجميع</footer>
+<script>
+const seed=[
+ {id:1,title:"مرحباً بكم في نبض السودان",body:"هذه نسخة تجريبية أولية للمنصة. ستظهر الأخبار الحقيقية بعد ربط مصدر تحريري موثوق.",category:"تنويه",date:"نسخة تجريبية"},
+ {id:2,title:"إطلاق النسخة التجريبية",body:"تم تجهيز أقسام الأخبار والخدمات والطقس وأسعار العملات لتجربة الواجهة.",category:"تحديث المنصة",date:"نسخة تجريبية"}
+];
+const STORAGE="nabdsudan_news_v1";
+function getNews(){try{return JSON.parse(localStorage.getItem(STORAGE))||seed}catch{return seed}}
+function saveNews(items){localStorage.setItem(STORAGE,JSON.stringify(items))}
+function renderNews(filter=""){
+ const list=document.getElementById("newsList"),items=getNews().filter(n=>(n.title+" "+n.body+" "+n.category).toLowerCase().includes(filter.toLowerCase()));
+ list.innerHTML="";
+ if(!items.length){list.innerHTML='<div class="empty">لا توجد نتائج مطابقة.</div>';return}
+ items.slice().reverse().forEach(n=>{
+  const el=document.createElement("article");el.className="news-item";
+  const h=document.createElement("h3");h.textContent=n.title;
+  const p=document.createElement("p");p.textContent=n.body;
+  const meta=document.createElement("div");meta.className="muted";meta.textContent=n.category+" · "+n.date;
+  el.append(h,p,meta);
+  if(n.id>2){const del=document.createElement("button");del.className="secondary";del.textContent="حذف";del.style.marginTop="8px";del.onclick=()=>{saveNews(getNews().filter(x=>x.id!==n.id));renderNews(document.getElementById("newsSearch").value)};el.append(del)}
+  list.append(el);
+ });
+}
+document.getElementById("newsSearch").addEventListener("input",e=>renderNews(e.target.value));
+document.getElementById("toggleAdmin").onclick=()=>{const p=document.getElementById("adminPanel");p.style.display=p.style.display==="block"?"none":"block"};
+document.getElementById("addNewsForm").addEventListener("submit",e=>{
+ e.preventDefault();const items=getNews();items.push({id:Date.now(),title:document.getElementById("headline").value.trim(),body:document.getElementById("bodyText").value.trim(),category:document.getElementById("category").value,date:new Date().toLocaleDateString("ar")});
+ saveNews(items);e.target.reset();renderNews(document.getElementById("newsSearch").value);alert("تمت الإضافة على هذا الجهاز.");
+});
+document.getElementById("loadRates").onclick=async()=>{
+ const out=document.getElementById("rates"),base=document.getElementById("baseCurrency").value;out.textContent="جارٍ تحميل البيانات...";
+ try{const r=await fetch("https://open.er-api.com/v6/latest/"+base);if(!r.ok)throw Error();const d=await r.json();if(d.result!=="success")throw Error();
+ const codes=["SDG","EUR","USD","SAR","EGP","AED","GBP"];out.innerHTML="<p>آخر تحديث: "+new Date(d.time_last_update_utc).toLocaleString("ar")+"</p>";
+ codes.filter(c=>c!==base).forEach(c=>{if(d.rates[c]){const p=document.createElement("p");p.textContent="1 "+base+" = "+d.rates[c].toLocaleString("en-US")+" "+c;out.append(p)}});
+ }catch{out.textContent="تعذر جلب الأسعار حالياً. تحقق من اتصال الإنترنت وحاول لاحقاً."}
+};
+document.getElementById("loadWeather").onclick=async()=>{
+ const city=document.getElementById("city").value,out=document.getElementById("weatherResult");out.textContent="جارٍ تحميل الطقس...";
+ try{const r=await fetch("https://wttr.in/"+encodeURIComponent(city)+"?format=j1");if(!r.ok)throw Error();const d=await r.json(),c=d.current_condition[0],area=d.nearest_area[0].areaName[0].value;
+ out.textContent=area+": "+c.temp_C+"°م، "+c.weatherDesc[0].value+"، الرطوبة "+c.humidity+"%، الرياح "+c.windspeedKmph+" كم/س.";
+ }catch{out.textContent="تعذر جلب حالة الطقس حالياً. حاول مرة أخرى لاحقاً."}
+};
+renderNews();
+</script>
+</body></html>
